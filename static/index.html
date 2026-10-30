@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="查看本站积分、兑换充值，一键连接 WorkBuddy，让模型服务更简单。">
+  <title>星桥 AI · 让好用的 AI，触手可及</title>
+  <link rel="icon" type="image/png" href="/static/icons/starbridge-app.png">
+  <link rel="stylesheet" href="/static/styles.css?v=2.9">
+  <script src="/static/app.js?v=2.9" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="首页"><img src="/static/icons/starbridge-app.png" alt="" width="34" height="34"><span data-brand>星桥 AI</span><span class="brand-note">模型服务</span></a>
+    <nav aria-label="主导航"><button class="nav-link" data-view="overview">我的空间</button><button class="nav-link" data-view="connect">连接 WorkBuddy</button><button class="nav-link" data-view="recharge">积分充值</button></nav>
+    <div id="account-area"><button class="button dark small" id="open-login">登录账户 <span aria-hidden="true">↗</span></button></div>
+  </header>
+
+  <main>
+    <section id="landing" class="landing">
+      <div class="hero-copy"><p class="hero-kicker"><span data-brand>星桥 AI</span> <span> / </span> WORKBUDDY 助手</p>
+        <h1>为 WorkBuddy<br>连接更多 AI 模型。</h1>
+        <p class="hero-description">从选择模型到查看余额，<br>一切就绪，专注你的下一件事。</p>
+        <div class="hero-actions"><button class="button dark large" id="hero-login">进入我的空间 <span aria-hidden="true">↗</span></button><a class="button outline large" href="/downloads/Starbridge-Assistant.exe">下载 Windows 助手 <span aria-hidden="true">↓</span></a></div>
+        <p class="hero-footnote">浏览器登录 · Windows 原生客户端 · 一键配置并自动备份</p>
+      </div>
+      <div class="hero-visual product-preview" aria-label="助手界面示意">
+        <div class="preview-shell"><div class="preview-top"><span class="preview-logo">✦</span><strong data-brand>星桥 AI</strong><span class="preview-os">Windows 助手</span></div>
+          <div class="preview-body"><div class="preview-label">你的模型服务工作台</div><h2>积分、模型与连接<br>一处掌握</h2>
+          <div class="preview-balance"><span>可用积分</span><strong>— <small>积分</small></strong><span>登录后同步账户余额</span></div>
+          <div class="preview-row"><img src="/static/icons/connect.png" alt=""><div><strong>连接 WorkBuddy</strong><p>选择模型，自动备份并写入配置</p></div><span>→</span></div>
+          <div class="preview-row"><img src="/static/icons/wallet.png" alt=""><div><strong>查看积分和记录</strong><p>网页与助手共用账户余额</p></div><span>→</span></div></div>
+        </div><div class="preview-caption">连接更简单，使用更安心</div>
+      </div>
+      <div class="feature-strip"><div><img src="/static/icons/connect.png" alt=""><strong>轻松接入</strong><p>自动配置，原有模型妥善保留。</p></div><div><img src="/static/icons/wallet.png" alt=""><strong>余额清晰</strong><p>网页与客户端同步同一份余额。</p></div><div><img src="/static/icons/history.png" alt=""><strong>用量可查</strong><p>兑换积分，随时查看消费记录。</p></div></div>
+      <div class="service-disclosure"><span>使用说明</span> 本站提供独立模型服务额度，不增加 WorkBuddy 官方积分。在线支付暂未开通，支持注册账号及兑换码充值。</div>
+    </section>
+
+    <section id="workspace" hidden>
+      <div class="workspace-heading"><div><p class="eyebrow">你的账户空间</p><h1 id="greeting">欢迎回来</h1><p class="muted">你的模型、积分与消费，一目了然。</p></div><div class="heading-badge" role="status" aria-live="polite"><span class="status-dot"></span> <span id="sync-label">正在同步账户</span></div></div>
+      <div class="workspace-layout">
+        <aside class="sidebar" aria-label="空间导航"><button data-view="overview" class="side-link active"><img class="nav-icon" src="/static/icons/dashboard.png" alt="">空间概览</button><button data-view="connect" class="side-link"><img class="nav-icon" src="/static/icons/connect.png" alt="">连接与配置</button><button data-view="recharge" class="side-link"><img class="nav-icon" src="/static/icons/wallet.png" alt="">积分充值</button><button data-view="usage" class="side-link"><img class="nav-icon" src="/static/icons/history.png" alt="">消费记录</button><div class="sidebar-bottom"><span class="tiny-label">独立服务额度</span><p>放心用，明白消费。<br>积分按服务方规则结算。</p></div></aside>
+        <div class="content">
+          <div id="test-banner" class="notice-banner" hidden><span>测试阶段</span> 当前采用测试价格；积分按服务方设置的比例显示。在线支付暂未开通。</div>
+          <section class="view" id="view-overview">
+            <div class="balance-grid"><div class="balance-card"><div class="balance-top"><span>可用积分</span><span class="balance-badge">本站钱包</span></div><div class="balance-number"><span id="balance">—</span><small>积分</small></div><div class="balance-bottom"><span id="updated-at">等待同步</span><button id="refresh-balance" aria-label="刷新积分余额">↻ 刷新</button></div><div id="low-balance" class="low-balance" hidden>余额较低，可以先兑换充值，再继续使用。</div></div><div class="stat-card"><span class="tiny-label">累计消耗</span><strong id="used">—</strong><span class="muted">积分</span><div class="stat-line"></div><span class="tiny-label">已完成请求</span><strong id="requests">—</strong><span class="muted">次</span></div></div>
+            <div class="section-title"><div><p class="eyebrow">开始使用</p><h2>第一次使用？从这里开始</h2></div><span class="step-tag">约 3 步</span></div>
+            <div class="onboarding"><article><span class="step-number">1</span><h3>下载接入助手</h3><p>下载 EXE，双击打开。无需复制密钥，也无需手动改文件。</p><a href="/downloads/Starbridge-Assistant.exe" class="text-action">下载 Windows 版 ↓</a></article><article><span class="step-number">2</span><h3>登录，点击连接</h3><p>使用本站账户登录助手，自动备份并合并 WorkBuddy 配置。</p><button data-view="connect" class="text-action">查看配置说明 ↗</button></article><article><span class="step-number">3</span><h3>选中本站模型</h3><p>在 WorkBuddy 中选择「本站」标识模型，开始创作。</p><button data-view="usage" class="text-action">查看消费记录 ↗</button></article></div>
+            <div class="account-note"><div><strong>统一计费，积分不足自动停止调用</strong><p>不同模型按服务方设置的规则扣费，网页与客户端同步结算后的余额。</p></div><button data-view="recharge" class="button outline">兑换充值 ↗</button></div>
+          </section>
+
+          <section class="view" id="view-connect" hidden>
+            <div class="section-title top"><div><p class="eyebrow">CONNECT YOUR WORKBUDDY</p><h2>配置一次，轻松开始</h2></div><span class="pill">Windows 10 / 11</span></div>
+            <div class="connect-primary"><div><div class="app-icon"><img src="/static/mark.svg" width="40" height="40" alt=""></div><h3><span data-brand>星桥 AI</span> 接入助手</h3><p>登录账户，自动取得你的专属凭证和可用模型。<br>配置前备份，不覆盖其他供应商。</p><a class="button dark" href="/downloads/Starbridge-Assistant.exe">下载接入助手 ↓</a><small>独立 Windows EXE · 浏览器登录 · 本机加密记住登录</small></div><div class="connect-checks"><p><span>✓</span>识别 WorkBuddy 配置位置</p><p><span>✓</span>备份并合并原有模型</p><p><span>✓</span>查看积分余额，随时刷新</p><p><span>✓</span>重启前确认，不打断任务</p></div></div>
+            <div class="section-title"><div><h3>你的可用模型</h3><p class="muted">模型由 New API 统一管理与计费，具体能力以实际调用为准。</p></div><button id="reload-models" class="text-action">刷新列表 ↻</button></div>
+            <p id="models-status" class="inline-status" role="status" aria-live="polite"></p><div id="model-list" class="model-grid"></div>
+            <details class="manual-panel"><summary>熟悉配置？获取手动配置信息 <span>＋</span></summary><p>此操作会创建或复用你的专属接入凭证。配置中包含密钥，请勿公开分享。</p><button id="prepare-config" class="button outline">生成我的配置</button><div id="manual-result" hidden><label for="manual-json">个人配置（含专属密钥）</label><textarea id="manual-json" rows="9" readonly spellcheck="false"></textarea><button id="download-json" class="text-action">下载个人配置 JSON ↓</button><p class="muted">自动配置建议使用助手；不同 WorkBuddy 版本的文件结构可能不同。</p></div></details>
+          </section>
+
+          <section class="view" id="view-recharge" hidden>
+            <div class="section-title top"><div><p class="eyebrow">TOP UP YOUR BALANCE</p><h2>补充积分，继续好想法</h2></div></div>
+            <div class="recharge-grid"><form id="redeem-form" class="redeem-card"><span class="pill">兑换码充值</span><h3>有兑换码？在这里到账。</h3><p>兑换后，积分将记入当前登录账户。每张兑换码仅能使用一次。</p><label for="redeem-code">积分兑换码</label><input id="redeem-code" name="code" placeholder="粘贴完整兑换码" required autocomplete="off" maxlength="128"><p class="field-hint">确认当前账户正确后再兑换，到账后不会转入官方账户。</p><button class="button dark" type="submit">确认兑换 <span>↗</span></button><p id="redeem-message" role="status"></p></form><aside class="purchase-card"><div class="simple-symbol">＋</div><h3>在线购买，稍后见</h3><p>支付渠道尚未开通，目前支持兑换码充值。请联系服务方获取账户与兑换码。</p><div class="purchase-divider"></div><strong>积分使用说明</strong><p>本站积分仅用于本站模型服务。不同模型可能按不同规则扣费；测试阶段不代表正式售价。</p></aside></div>
+          </section>
+
+          <section class="view" id="view-usage" hidden>
+            <div class="section-title top"><div><p class="eyebrow">EVERY REQUEST, ACCOUNTED FOR</p><h2>每一次使用，都有记录</h2></div><button id="refresh-usage" class="text-action">刷新记录 ↻</button></div>
+            <p id="usage-status" class="inline-status" role="status" aria-live="polite"></p><div class="usage-table-wrap"><table class="usage-table"><thead><tr><th>时间</th><th>模型 / 记录类型</th><th>用量</th><th>消耗积分</th></tr></thead><tbody id="usage-body"></tbody></table><div id="usage-empty" class="empty-state" hidden><div>≡</div><h3>这里将记录你的每一次使用</h3><p>完成模型调用后，可在这里查看已结算的消费。</p></div></div><div class="pagination"><span id="usage-total"></span><div><button class="button outline small" id="prev-page">上一页</button><button class="button outline small" id="next-page">下一页</button></div></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span><span data-brand>星桥 AI</span> · 让连接更简单</span><span>本站独立运营，与 WorkBuddy 官方无隶属关系。</span></footer>
+  <dialog id="login-dialog"><form id="login-form"><button type="button" class="close-dialog" id="close-login" aria-label="关闭登录">×</button><img src="/static/mark.svg" alt="" width="42" height="42"><p class="eyebrow">WELCOME BACK</p><h2 id="auth-title">登录你的 AI 空间</h2><p class="muted" id="auth-description">登录一次，网页与客户端轻松连接。</p><label for="username">账户</label><input id="username" name="username" required autocomplete="username" placeholder="输入账户名" maxlength="64"><label for="password">密码</label><input id="password" name="password" required type="password" autocomplete="current-password" placeholder="输入密码" maxlength="128"><div id="two-factor-field" hidden><label for="two-factor">二次验证码</label><input id="two-factor" inputmode="numeric" autocomplete="one-time-code" maxlength="32"></div><label class="remember-row"><input id="remember-login" type="checkbox" checked> 保持登录 30 天（仅在个人设备勾选）</label><p id="login-error" class="form-error" role="alert"></p><button class="button dark full" type="submit"><span id="auth-submit-text">登录并继续 ↗</span></button><p class="login-help">没有账号？<button type="button" id="toggle-register" class="text-action">立即注册</button></p></form></dialog>
+  <dialog id="desktop-dialog"><div class="device-approval"><p class="eyebrow">CONNECT YOUR DESKTOP</p><h2>允许助手登录？</h2><p>请核对客户端显示的验证码一致后再确认。</p><div id="desktop-code" class="device-code">—</div><p class="muted">确认后，当前 Windows 设备可保留登录 30 天。不要批准陌生人发来的登录链接。</p><button id="approve-desktop" class="button dark full">验证码一致，允许登录</button><button id="cancel-desktop" class="text-action">取消</button><p id="desktop-message" role="status"></p></div></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

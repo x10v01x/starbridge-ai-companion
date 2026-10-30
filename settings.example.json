@@ -1,0 +1,15 @@
+{
+  "brand": "星桥 AI",
+  "upstream_url": "http://127.0.0.1:3000",
+  "public_url": "http://127.0.0.1:8400",
+  "api_base_url": "https://relay.example.com/v1",
+  "test_pricing": true,
+  "refresh_seconds": 20,
+  "session_hours": 8,
+  "secure_cookie": false,
+  "registration_enabled": false,
+  "state_path": "./state/portal.db",
+  "provisioning_socket": "/run/starbridge-provisioner/provisioner.sock",
+  "support_text": "账号与兑换码由服务方发放；在线购买暂未开通。",
+  "quota_per_point": 5000
+}
