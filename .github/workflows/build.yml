@@ -1,0 +1,52 @@
+name: Test and build Windows client
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install test dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Test portal
+        run: python -m unittest discover -s tests -p test_portal.py
+      - name: Test frontend
+        run: node tests/test_frontend.cjs
+      - name: Build Windows client
+        shell: pwsh
+        run: ./desktop/build.ps1
+      - name: Test compiled client
+        shell: pwsh
+        run: |
+          $testDir = Join-Path $env:RUNNER_TEMP 'starbridge-self-test'
+          $process = Start-Process -FilePath (Resolve-Path 'dist/Starbridge-Assistant.exe') -ArgumentList @('--self-test', "`"$testDir`"") -PassThru
+          if (-not $process.WaitForExit(30000)) { $process.Kill(); throw 'Client self-test timed out' }
+          if (-not (Test-Path (Join-Path $testDir 'result.txt'))) { throw 'Client self-test did not produce a success result' }
+          Get-Content (Join-Path $testDir 'result.txt')
+      - name: Create checksum
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash dist/Starbridge-Assistant.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          Set-Content -Path dist/SHA256SUMS.txt -Value "$hash  Starbridge-Assistant.exe" -Encoding ascii
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Starbridge-Assistant-unsigned-windows-x64
+          path: |
+            dist/Starbridge-Assistant.exe
+            dist/SHA256SUMS.txt
+          if-no-files-found: error

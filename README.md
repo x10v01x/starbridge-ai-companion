@@ -76,4 +76,4 @@ node tests/test_frontend.cjs
 
 SignPath Foundation 为符合要求的开源项目提供申请途径；**开放源码不等于自动获得免费签名**。维护者需要有公开且已发布的合格开源项目、可追溯的构建、维护与审查流程，满足其隐私、安全及签名政策，并通过审核；条件可能变化，申请前请查看 [SignPath 条件](https://signpath.org/terms)。它的证书发行者为 SignPath Foundation，不是个人名字。仅在其批准后才能在项目页面标注其提供签名，不应提前声称已经获得。
 
-当前目录没有创建公共仓库、上传源码、提交 CI 配置或获得签名证书。发布、申请和审核仍需项目所有者完成。
+本项目使用 GitHub Actions 测试并构建 Windows 客户端。当前发布的客户端尚未签名；SignPath 申请和审核完成前，Windows 仍可能显示安全警告。
