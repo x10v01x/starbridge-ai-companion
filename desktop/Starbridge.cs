@@ -50,7 +50,7 @@ public class Starbridge {
    var app = new Application(); var main = new Starbridge();
    using(var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MainWindow.xaml")) main.window=(Window)XamlReader.Load(stream);
    main.Initialize(); app.Run(main.window);
-  } catch(Exception e) { MessageBox.Show(e.Message,"星桥 AI",MessageBoxButton.OK,MessageBoxImage.Error); }
+  } catch(Exception e) { if(args.Contains("--self-test")) { try { File.WriteAllText(args.Last()+".error.txt",e.ToString(),Encoding.UTF8); } catch {} Environment.Exit(1); } MessageBox.Show(e.Message,"星桥 AI",MessageBoxButton.OK,MessageBoxImage.Error); }
  }
  void Initialize() {
   using(var iconStream=Assembly.GetExecutingAssembly().GetManifestResourceStream("icons.app.png")){var icon=new System.Windows.Media.Imaging.BitmapImage();icon.BeginInit();icon.CacheOption=System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;icon.StreamSource=iconStream;icon.EndInit();window.Icon=icon;Find<Image>("BrandIcon").Source=icon;}

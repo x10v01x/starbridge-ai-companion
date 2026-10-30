@@ -36,6 +36,7 @@ jobs:
           $testDir = Join-Path $env:RUNNER_TEMP 'starbridge-self-test'
           $process = Start-Process -FilePath (Resolve-Path 'dist/Starbridge-Assistant.exe') -ArgumentList @('--self-test', "`"$testDir`"") -PassThru
           if (-not $process.WaitForExit(30000)) { $process.Kill(); throw 'Client self-test timed out' }
+          if ($process.ExitCode -ne 0) { if (Test-Path "$testDir.error.txt") { Get-Content "$testDir.error.txt" }; throw 'Client self-test failed' }
           if (-not (Test-Path (Join-Path $testDir 'result.txt'))) { throw 'Client self-test did not produce a success result' }
           Get-Content (Join-Path $testDir 'result.txt')
       - name: Create checksum
